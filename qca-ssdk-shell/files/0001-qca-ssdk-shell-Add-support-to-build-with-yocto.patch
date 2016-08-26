@@ -1,0 +1,52 @@
+From 635e522da16b135b71df2557d6e6dfbd18b3f768 Mon Sep 17 00:00:00 2001
+From: Ram Chandra Jangir <rjangi@codeaurora.org>
+Date: Fri, 26 Aug 2016 22:01:17 +0530
+Subject: [PATCH] qca-ssdk-shell: Add support to build with yocto
+
+Change-Id: I160acb9d8e4e579ff03735cfad11183fa4b8ab17
+Signed-off-by: Ram Chandra Jangir <rjangi@codeaurora.org>
+---
+ make/tools.mk     | 8 ++++----
+ src/shell/shell.c | 8 --------
+ 2 files changed, 4 insertions(+), 12 deletions(-)
+
+diff --git a/make/tools.mk b/make/tools.mk
+index 6ed3872..5e1dacd 100755
+--- a/make/tools.mk
++++ b/make/tools.mk
+@@ -1,9 +1,9 @@
+
+ ifeq (linux, $(OS))
+-  CC=$(TOOL_PATH)/$(TOOLPREFIX)gcc
+-  AR=$(TOOL_PATH)/$(TOOLPREFIX)ar
+-  LD=$(TOOL_PATH)/$(TOOLPREFIX)ld
+-  STRIP=$(TOOL_PATH)/$(TOOLPREFIX)strip
++#  CC=$(TOOL_PATH)/$(TOOLPREFIX)gcc
++#  AR=$(TOOL_PATH)/$(TOOLPREFIX)ar
++#  LD=$(TOOL_PATH)/$(TOOLPREFIX)ld
++#  STRIP=$(TOOL_PATH)/$(TOOLPREFIX)strip
+   MAKE=make -S
+   CP=cp
+   MKDIR=mkdir
+diff --git a/src/shell/shell.c b/src/shell/shell.c
+index ec52889..21e008c 100755
+--- a/src/shell/shell.c
++++ b/src/shell/shell.c
+@@ -766,14 +766,6 @@ void cmd_welcome()
+     dprintf("\n Welcome to SSDK Shell version: %s, at %s.\n", ver, date);
+ }
+
+-/* Dummy function to avoid linker complaints */
+-void __aeabi_unwind_cpp_pr0(void)
+-{
+-};
+-void __aeabi_unwind_cpp_pr1(void)
+-{
+-};
+-
+ int
+ main(int argc, const char *argv[])
+ {
+--
+2.7.2
+

@@ -20,7 +20,7 @@ EXTRA_OEMAKE += "TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
 		SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
 		TOOLPREFIX='arm-poky-linux-gnueabi-' \
 		KVER='${KERNEL_VERSION}' \
-		ARCH='arm' \
+		ARCH='arm' -j1 \
 		"
 
 do_install() {

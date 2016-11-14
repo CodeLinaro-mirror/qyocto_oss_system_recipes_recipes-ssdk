@@ -1,6 +1,6 @@
 DESCRIPTION = "SSDK Switch Driver"
-LICENSE = "GPLv2"
-LIC_FILES_CHKSUM = "file://ChangeLog;md5=26274509bf48473d672d111c90379232"
+LICENSE = "ISC"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/copyright;md5=0a674a878fe6f6c9e1261ae3767efebd"
 
 inherit module
 
@@ -8,6 +8,7 @@ FILESPATH =+ "${TOPDIR}/../opensource/:"
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRC_URI = "file://qca-ssdk \
+	   file://copyright \
 	   "
 
 DEPENDS = "virtual/kernel"

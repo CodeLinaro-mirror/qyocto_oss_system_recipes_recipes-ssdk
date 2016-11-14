@@ -1,11 +1,12 @@
 DESCRIPTION = "SSDK Switch Driver"
-LICENSE = "GPLv2"
-LIC_FILES_CHKSUM = "file://config;md5=06b5dbe32e9526e1c00f5bda08fa9e00"
+LICENSE = "ISC"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/copyright;md5=0a674a878fe6f6c9e1261ae3767efebd"
 
 
 FILESPATH =+ "${TOPDIR}/../opensource/:"
 FILESEXTRAPATHS_prepend := "${THISDIR}/files/:"
-SRC_URI = "file://qca-ssdk-shell \
+SRC_URI = "file://copyright \
+	   file://qca-ssdk-shell \
 	   file://0001-qca-ssdk-shell-Add-support-to-build-with-yocto.patch \
 	   "
 

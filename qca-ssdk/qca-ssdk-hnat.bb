@@ -34,6 +34,8 @@ do_install() {
 	install -d ${D}${includedir}/qca-ssdk
 	install -d ${D}${includedir}/qca-ssdk/api
 	install -m 0644 ${S}/include/api/sw_ioctl.h ${D}${includedir}/qca-ssdk/api/sw_ioctl.h
+	install -d ${D}${includedir}/qca-ssdk/ref
+	install -m 0644 ${S}/include/ref/ref_port_ctrl.h ${D}${includedir}/qca-ssdk/ref/ref_port_ctrl.h
 }
 
 KERNEL_MODULE_AUTOLOAD += "qca-ssdk"

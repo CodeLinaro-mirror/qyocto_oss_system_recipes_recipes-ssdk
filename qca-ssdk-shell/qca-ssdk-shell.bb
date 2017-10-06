@@ -17,7 +17,7 @@ S = "${WORKDIR}/qca-ssdk-shell"
 do_compile() {
 	${MAKE} -C ${S} TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
 		SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
-		TOOLPREFIX='arm-poky-linux-gnueabi-' \
+		TOOLPREFIX='${TARGET_PREFIX}' \
 		KVER='${KERNEL_VERSION}' \
 		ARCH='arm'
 }

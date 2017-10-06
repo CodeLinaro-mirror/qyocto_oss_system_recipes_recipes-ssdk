@@ -19,9 +19,10 @@ PACKAGES += "kernel-module-ssdk"
 
 EXTRA_OEMAKE += "TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
 		SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
-		TOOLPREFIX='arm-poky-linux-gnueabi-' \
+		TOOLPREFIX='${TARGET_PREFIX}' \
 		KVER='${KERNEL_VERSION}' \
 		ARCH='arm' -j1 \
+		OS='linux' \
 		"
 
 do_install() {

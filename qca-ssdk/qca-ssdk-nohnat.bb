@@ -36,4 +36,4 @@ do_install() {
 }
 
 KERNEL_MODULE_AUTOLOAD += "qca-ssdk"
-module_autoload_qca-ssdk = "qca-ssdk essedma"
+module_autoload_qca-ssdk = "qca-ssdk"

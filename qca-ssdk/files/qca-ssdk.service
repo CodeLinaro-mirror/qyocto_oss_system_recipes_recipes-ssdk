@@ -1,0 +1,10 @@
+[Unit]
+Description=Set SSDK ACL rules and COS mapping
+After=systemd-modules-load.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "/usr/bin/qca-ssdk start"
+
+[Install]
+WantedBy=multi-user.target

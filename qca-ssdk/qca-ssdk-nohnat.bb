@@ -24,16 +24,36 @@ EXTRA_OEMAKE += "TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
 		KVER='${KERNEL_VERSION}' \
 		ARCH='arm' -j1 \
 		OS='linux' \
+		EXTRA_CFLAGS='-I${STAGING_INCDIR}' \
 		"
+EXTRA_OEMAKE+= "HK_CHIP=enable"
 
 do_install() {
 	install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/${PN}
 	install -m 0644 build/bin/qca-ssdk${KERNEL_OBJECT_SUFFIX} ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/${PN}
 	install -d ${D}${includedir}/qca-ssdk
 	install -d ${D}${includedir}/qca-ssdk/api
-	install -m 0644 ${S}/include/api/sw_ioctl.h ${D}${includedir}/qca-ssdk/api/sw_ioctl.h
 	install -d ${D}${includedir}/qca-ssdk/ref
+	install -d ${D}${includedir}/qca-ssdk/fal
+	install -d ${D}${includedir}/qca-ssdk/sal
+	install -d ${D}${includedir}/qca-ssdk/init
+	install -m 0644 ${S}/include/api/sw_ioctl.h ${D}${includedir}/qca-ssdk/api/sw_ioctl.h
+	if [ -f ${S}/include/ref/ref_vsi.h ]; then \
+	install -m 0644 ${S}/include/ref/ref_vsi.h ${D}${includedir}/qca-ssdk/ref/ref_vsi.h
+	fi
+	if [ -f ${S}/include/ref/ref_fdb.h ]; then \
+	install -m 0644 ${S}/include/ref/ref_fdb.h ${D}${includedir}/qca-ssdk/ref/ref_fdb.h
+	fi
+	if [ -f ${S}/include/ref/ref_port_ctrl.h ]; then \
 	install -m 0644 ${S}/include/ref/ref_port_ctrl.h ${D}${includedir}/qca-ssdk/ref/ref_port_ctrl.h
+	fi
+	if [ -f ${S}/include/init/ssdk_init.h ]; then \
+	install -m 0644 ${S}/include/init/ssdk_init.h ${D}${includedir}/qca-ssdk/init/ssdk_init.h
+	fi
+	install -m 0644 ${S}/include/fal/* ${D}${includedir}/qca-ssdk/fal
+	install -m 0644 ${S}/include/common/*.h ${D}${includedir}/qca-ssdk
+	install -m 0644 ${S}/include/sal/os/linux/*.h ${D}${includedir}/qca-ssdk
+	install -m 0644 ${S}/include/sal/os/*.h ${D}${includedir}/qca-ssdk
 	install -d ${D}${bindir}
 	install -m 0755 ${WORKDIR}/files/qca-ssdk ${D}${bindir}/qca-ssdk
 	install -d ${D}${systemd_unitdir}/system

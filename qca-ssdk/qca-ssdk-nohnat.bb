@@ -18,14 +18,17 @@ S = "${WORKDIR}/qca-ssdk"
 
 PACKAGES += "kernel-module-ssdk"
 
+EXTRA_CFLAGS = "-I${STAGING_INCDIR}"
+EXTRA_CFLAGS_append_aarch64 += " -mcmodel=large -mfix-cortex-a53-843419"
 EXTRA_OEMAKE += "TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
 		SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
 		TOOLPREFIX='${TARGET_PREFIX}' \
 		KVER='${KERNEL_VERSION}' \
-		ARCH='arm' -j1 \
+		ARCH='${KARCH}' -j1 \
 		OS='linux' \
-		EXTRA_CFLAGS='-I${STAGING_INCDIR}' \
+		EXTRA_CFLAGS='${EXTRA_CFLAGS}' \
 		"
+
 EXTRA_OEMAKE+= "HK_CHIP=enable"
 
 do_install() {

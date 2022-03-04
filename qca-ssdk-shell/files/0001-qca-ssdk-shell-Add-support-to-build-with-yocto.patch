@@ -33,7 +33,7 @@ index ec52889..21e008c 100755
 --- a/src/shell/shell.c
 +++ b/src/shell/shell.c
 @@ -766,14 +766,6 @@ void cmd_welcome()
-     dprintf("\n Welcome to SSDK Shell version: %s, at %s.\n", ver, date);
+     dprintf("\n Welcome to %s Shell version: %s, at %s.\n", SSDK_STR, ver, date);
  }
 
 -/* Dummy function to avoid linker complaints */

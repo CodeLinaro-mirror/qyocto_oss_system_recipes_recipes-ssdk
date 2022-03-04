@@ -18,7 +18,7 @@ S = "${WORKDIR}/qca-ssdk"
 
 PACKAGES += "kernel-module-ssdk"
 
-EXTRA_CFLAGS = "-I${STAGING_INCDIR}"
+EXTRA_CFLAGS = "-I${STAGING_INCDIR} -fno-pic"
 EXTRA_CFLAGS_append_aarch64 += " -mcmodel=large -mfix-cortex-a53-843419"
 EXTRA_OEMAKE += "TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
 		SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
@@ -29,7 +29,9 @@ EXTRA_OEMAKE += "TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
 		EXTRA_CFLAGS='${EXTRA_CFLAGS}' \
 		"
 
-EXTRA_OEMAKE+= "HK_CHIP=enable"
+EXTRA_OEMAKE_append_ipq807x += "HK_CHIP=enable"
+EXTRA_OEMAKE_append_ipq95xx += "CHIP_TYPE=APPE "
+EXTRA_OEMAKE_append_ipq95xx += "PTP_FEATURE=enable "
 
 do_install() {
 	install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/${PN}
@@ -60,6 +62,7 @@ do_install() {
 	install -d ${D}${bindir}
 	install -m 0755 ${WORKDIR}/files/qca-ssdk ${D}${bindir}/qca-ssdk
 	install -d ${D}${systemd_unitdir}/system
+	install -m 0644 ${S}/temp/Module.symvers ${D}${includedir}/qca-ssdk/Module.symvers
 	install -m 0644 ${WORKDIR}/files/qca-ssdk.service ${D}${systemd_unitdir}/system/qca-ssdk.service
 }
 

@@ -20,18 +20,22 @@ PACKAGES += "kernel-module-ssdk"
 
 EXTRA_CFLAGS = "-I${STAGING_INCDIR} -fno-pic"
 EXTRA_CFLAGS_append_aarch64 += " -mcmodel=large -mfix-cortex-a53-843419"
-EXTRA_OEMAKE += "TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
-		SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
-		TOOLPREFIX='${TARGET_PREFIX}' \
-		KVER='${KERNEL_VERSION}' \
-		ARCH='${KARCH}' -j1 \
-		OS='linux' \
-		EXTRA_CFLAGS='${EXTRA_CFLAGS}' \
-		"
+EXTRA_OEMAKE_append += "KERNEL_SRC='${STAGING_KERNEL_DIR}' \
+                       TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
+                       SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
+                       TOOLPREFIX='${TARGET_PREFIX}' \
+                       KVER='${KERNEL_VERSION}' \
+                       ARCH='${KARCH}' -j1 \
+                       OS='linux' \
+                       EXTRA_CFLAGS='${EXTRA_CFLAGS}' \
+                       "
 
 EXTRA_OEMAKE_append_ipq807x += "HK_CHIP=enable"
-EXTRA_OEMAKE_append_ipq95xx += "CHIP_TYPE=APPE "
-EXTRA_OEMAKE_append_ipq95xx += "PTP_FEATURE=enable "
+EXTRA_OEMAKE_ipq95xx += "CHIP_TYPE=APPE"
+EXTRA_OEMAKE_ipq95xx += "PTP_FEATURE=enable"
+EXTRA_OEMAKE_ipq95xx_64 += "CHIP_TYPE=APPE"
+EXTRA_OEMAKE_ipq95xx_64 += "PTP_FEATURE=enable"
+
 
 do_install() {
 	install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/${PN}

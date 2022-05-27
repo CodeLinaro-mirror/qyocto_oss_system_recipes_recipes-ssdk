@@ -8,6 +8,8 @@ FILESPATH =+ "${TOPDIR}/../opensource/:"
 FILESEXTRAPATHS_prepend := "${THISDIR}/:"
 
 SRC_URI = "file://qca-nss-macsec \
+	   file://files/hostapd-macsec.sh \
+	   file://files/hostapd-macsec.conf \
 	   "
 
 DEPENDS = "virtual/kernel"
@@ -47,12 +49,18 @@ do_install() {
 	install -m 0644 include/nss_macsec_secy.h ${D}${includedir}/qca-nss-macsec
 	install -m 0644 include/nss_macsec_secy_rx.h ${D}${includedir}/qca-nss-macsec
 	install -m 0644 include/nss_macsec_secy_tx.h ${D}${includedir}/qca-nss-macsec
+	install -d ${D}${bindir}
+	install -m 0755 ${WORKDIR}/files/hostapd-macsec.sh ${D}${bindir}/hostapd-macsec.sh
+	install -d ${D}${sysconfdir}
+	install -m 0644 ${WORKDIR}/files/hostapd-macsec.conf  -D ${D}${sysconfdir}/data/hostapd-macsec.conf
 }
 
 FILES_${PN} = "\
               ${sbindir}/* \
               ${libdir}/* \
               ${includedir}/* \
+              ${bindir}/* \
+              ${sysconfdir}/* \
               "
 
 FILES_SOLIBSDEV = ""

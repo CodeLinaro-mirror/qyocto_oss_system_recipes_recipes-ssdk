@@ -35,7 +35,12 @@ EXTRA_OEMAKE_ipq95xx += "CHIP_TYPE=APPE"
 EXTRA_OEMAKE_ipq95xx_64 += "CHIP_TYPE=APPE"
 EXTRA_OEMAKE_ipq53xx += "CHIP_TYPE=MPPE"
 EXTRA_OEMAKE_ipq53xx_64 += "CHIP_TYPE=MPPE"
-
+EXTRA_OEMAKE_ipq53xx += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
+                        MODULE_TYPE=KSLIB modules \
+                        "
+EXTRA_OEMAKE_ipq53xx_64 += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
+                           MODULE_TYPE=KSLIB modules \
+                           "
 
 do_install() {
 	install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/${PN}
@@ -65,8 +70,12 @@ do_install() {
 	install -m 0644 ${S}/include/sal/os/*.h ${D}${includedir}/qca-ssdk
 	install -d ${D}${bindir}
 	install -m 0755 ${WORKDIR}/files/qca-ssdk ${D}${bindir}/qca-ssdk
-	install -d ${D}${systemd_unitdir}/system
+	if [ -d ${S}/include/temp ]; then \
 	install -m 0644 ${S}/temp/Module.symvers ${D}${includedir}/qca-ssdk/Module.symvers
+	else
+	install -m 0644 ${S}/Module.symvers ${D}${includedir}/qca-ssdk/Module.symvers
+	fi
+	install -d ${D}${systemd_unitdir}/system
 	install -m 0644 ${WORKDIR}/files/qca-ssdk.service ${D}${systemd_unitdir}/system/qca-ssdk.service
 }
 

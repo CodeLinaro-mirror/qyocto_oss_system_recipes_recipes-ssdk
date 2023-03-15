@@ -70,11 +70,7 @@ do_install() {
 	install -m 0644 ${S}/include/sal/os/*.h ${D}${includedir}/qca-ssdk
 	install -d ${D}${bindir}
 	install -m 0755 ${WORKDIR}/files/qca-ssdk ${D}${bindir}/qca-ssdk
-	if [ -d ${S}/include/temp ]; then \
 	install -m 0644 ${S}/temp/Module.symvers ${D}${includedir}/qca-ssdk/Module.symvers
-	else
-	install -m 0644 ${S}/Module.symvers ${D}${includedir}/qca-ssdk/Module.symvers
-	fi
 	install -d ${D}${systemd_unitdir}/system
 	install -m 0644 ${WORKDIR}/files/qca-ssdk.service ${D}${systemd_unitdir}/system/qca-ssdk.service
 }

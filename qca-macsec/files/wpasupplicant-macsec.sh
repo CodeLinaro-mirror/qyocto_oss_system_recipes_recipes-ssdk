@@ -121,7 +121,7 @@ status() {
 	if [ -e "/var/run/wpasupplicant-macsec-$ethport.pid" ]
 	then
 		local find_pid=$(cat /var/run/wpasupplicant-macsec-$ethport.pid)
-		local resa=$(pgrep /usr/sbin/wpa_supplicant-macsec | grep -wq "${find_pid}" && echo "status: Active" || echo "status: Inactive")
+		local resa=$(pgrep wpa_supplicant-macsec | grep -wq "${find_pid}" && echo "status: Active" || echo "status: Inactive")
 		echo $resa
 	else
 		echo "status: Inactive"

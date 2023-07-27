@@ -121,7 +121,7 @@ status() {
 	if [ -e "/var/run/hostapd-macsec-$ethport.pid" ]
 	then
 		local find_pid=$(cat /var/run/hostapd-macsec-$ethport.pid)
-		local resa=$(pgrep /usr/sbin/hostapd-macsec | grep -wq "${find_pid}" && echo "status: Active" || echo "status: Inactive")
+		local resa=$(pgrep hostapd-macsec | grep -wq "${find_pid}" && echo "status: Active" || echo "status: Inactive")
 		echo $resa
 	else
 		echo "status: Inactive"

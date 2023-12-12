@@ -6,7 +6,7 @@ inherit module
 inherit systemd
 
 FILESPATH =+ "${TOPDIR}/../opensource/:"
-FILESEXTRAPATHS_prepend := "${THISDIR}/:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/:"
 
 SRC_URI = "file://qca-ssdk \
 	   file://files \
@@ -18,9 +18,9 @@ S = "${WORKDIR}/qca-ssdk"
 
 PACKAGES += "kernel-module-ssdk"
 
-EXTRA_CFLAGS = "-I${STAGING_INCDIR} -fno-pic"
-EXTRA_CFLAGS_append_aarch64 += " -mcmodel=large -mfix-cortex-a53-843419"
-EXTRA_OEMAKE_append += "KERNEL_SRC='${STAGING_KERNEL_DIR}' \
+EXTRA_CFLAGS = "-I${STAGING_INCDIR} -fno-pic -Wno-error=incompatible-pointer-types"
+EXTRA_CFLAGS:append_aarch64 += " -mcmodel=large -mfix-cortex-a53-843419"
+EXTRA_OEMAKE:append += "KERNEL_SRC='${STAGING_KERNEL_DIR}' \
                        TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
                        SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
                        TOOLPREFIX='${TARGET_PREFIX}' \
@@ -76,9 +76,9 @@ do_install() {
 	install -m 0644 ${WORKDIR}/files/qca-ssdk.service ${D}${systemd_unitdir}/system/qca-ssdk.service
 }
 
-SYSTEMD_SERVICE_${PN} += "qca-ssdk.service"
+SYSTEMD_SERVICE:${PN} += "qca-ssdk.service"
 
-FILES_${PN} = " \
+FILES:${PN} = " \
 	${systemd_unitdir}/system/qca-ssdk.service \
 	${bindir}/qca-ssdk \
 "

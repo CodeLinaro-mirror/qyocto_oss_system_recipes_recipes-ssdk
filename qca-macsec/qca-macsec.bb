@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/${LICENSE};md5
 inherit module
 
 FILESPATH =+ "${TOPDIR}/../opensource/:"
-FILESEXTRAPATHS_prepend := "${THISDIR}/:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/:"
 
 SRC_URI = "file://qca-nss-macsec \
 	   file://files/hostapd-macsec.sh \
@@ -22,7 +22,7 @@ PACKAGES += "kernel-module-qca-nss-macsec"
 
 CFLAGS +="-I${STAGING_INCDIR}"
 CFLAGS +="-mfpu=neon -mfloat-abi=hard"
-CFLAGS_remove_aarch64 ="-mfpu=neon -mfloat-abi=hard"
+CFLAGS:remove_aarch64 ="-mfpu=neon -mfloat-abi=hard"
 LDFLAGS +="--sysroot=${STAGING_DIR_TARGET}"
 
 QCA_MACSEC_CONFIG_OPTS+= "TOOL_PATH=${STAGING_BINDIR_TOOLCHAIN} \
@@ -55,7 +55,7 @@ do_install() {
 	install -m 0644 ${WORKDIR}/files/hostapd-macsec.conf  -D ${D}${sysconfdir}/data/hostapd-macsec.conf
 }
 
-FILES_${PN} = "\
+FILES:${PN} = "\
               ${sbindir}/* \
               ${libdir}/* \
               ${includedir}/* \

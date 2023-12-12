@@ -18,12 +18,12 @@ S = "${WORKDIR}/qca-psdk"
 
 PR = "r0"
 
-INSANE_SKIP_${PN} += "already-stripped"
+INSANE_SKIP:${PN} += "already-stripped"
 
 
 CFLAGS +="-I${STAGING_INCDIR}"
 CFLAGS +="-mfpu=neon -mfloat-abi=hard"
-CFLAGS_remove_aarch64 ="-mfpu=neon -mfloat-abi=hard"
+CFLAGS:remove_aarch64 ="-mfpu=neon -mfloat-abi=hard"
 
 LDFLAGS +="--sysroot=${STAGING_DIR_TARGET}"
 
@@ -39,7 +39,7 @@ do_compile() {
     ${MAKE} -C ${S} ${QCA_PSDK_CONFIG_OPTS}
 }
 
-do_configure_prepend () {
+do_configure:prepend () {
     cd ${S}/scripts;perl qca-ssdk2psdk.pl
 }
 
@@ -50,4 +50,4 @@ do_install() {
     install -m 0755 obj/psdk_cli ${D}${sbindir}
 }
 
-FILES_${PN} = "${sbindir}/psdk_cli"
+FILES:${PN} = "${sbindir}/psdk_cli"

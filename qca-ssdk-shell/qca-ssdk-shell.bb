@@ -4,13 +4,13 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/copyright;md5=0a674a878fe6f6c9e1261ae3767e
 
 
 FILESPATH =+ "${TOPDIR}/../opensource/:"
-FILESEXTRAPATHS_prepend := "${THISDIR}/files/:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files/:"
 SRC_URI = "file://copyright \
 	   file://qca-ssdk-shell \
 	   file://0001-qca-ssdk-shell-Add-support-to-build-with-yocto.patch \
 	   "
 
-INSANE_SKIP_${PN} += "already-stripped"
+INSANE_SKIP:${PN} += "already-stripped"
 
 S = "${WORKDIR}/qca-ssdk-shell"
 

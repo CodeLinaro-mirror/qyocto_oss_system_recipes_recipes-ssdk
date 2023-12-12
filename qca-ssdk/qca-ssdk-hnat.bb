@@ -6,7 +6,7 @@ inherit module
 inherit systemd
 
 FILESPATH =+ "${TOPDIR}/../opensource/:"
-FILESEXTRAPATHS_prepend := "${THISDIR}/:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/:"
 
 SRC_URI = "file://qca-ssdk \
 	   file://files \
@@ -44,9 +44,9 @@ do_install() {
 	install -m 0644 ${WORKDIR}/files/qca-ssdk.service ${D}${systemd_unitdir}/system/qca-ssdk.service
 }
 
-SYSTEMD_SERVICE_${PN} += "qca-ssdk.service"
+SYSTEMD_SERVICE:${PN} += "qca-ssdk.service"
 
-FILES_${PN} = " \
+FILES:${PN} = " \
 	${systemd_unitdir}/system/qca-ssdk.service \
 	${bindir}/qca-ssdk \
 "

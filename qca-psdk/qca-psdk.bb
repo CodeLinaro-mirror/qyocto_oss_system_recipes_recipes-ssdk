@@ -23,7 +23,7 @@ INSANE_SKIP:${PN} += "already-stripped"
 
 CFLAGS +="-I${STAGING_INCDIR}"
 CFLAGS +="-mfpu=neon -mfloat-abi=hard"
-CFLAGS:remove_aarch64 ="-mfpu=neon -mfloat-abi=hard"
+CFLAGS:remove:aarch64 ="-mfpu=neon -mfloat-abi=hard"
 
 LDFLAGS +="--sysroot=${STAGING_DIR_TARGET}"
 

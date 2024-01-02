@@ -19,7 +19,7 @@ S = "${WORKDIR}/qca-ssdk"
 PACKAGES += "kernel-module-ssdk"
 
 EXTRA_CFLAGS = "-I${STAGING_INCDIR} -fno-pic -Wno-error=incompatible-pointer-types"
-EXTRA_CFLAGS:append_aarch64 += " -mcmodel=large -mfix-cortex-a53-843419"
+EXTRA_CFLAGS:append:aarch64 += " -mcmodel=large -mfix-cortex-a53-843419"
 EXTRA_OEMAKE:append += "KERNEL_SRC='${STAGING_KERNEL_DIR}' \
                        TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
                        SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
@@ -30,16 +30,16 @@ EXTRA_OEMAKE:append += "KERNEL_SRC='${STAGING_KERNEL_DIR}' \
                        EXTRA_CFLAGS='${EXTRA_CFLAGS}' \
                        "
 
-EXTRA_OEMAKE_ipq807x += "CHIP_TYPE=HPPE"
-EXTRA_OEMAKE_ipq807x_64 += "CHIP_TYPE=HPPE"
-EXTRA_OEMAKE_ipq95xx += "CHIP_TYPE=APPE"
-EXTRA_OEMAKE_ipq95xx_64 += "CHIP_TYPE=APPE"
-EXTRA_OEMAKE_ipq53xx += "CHIP_TYPE=MPPE"
-EXTRA_OEMAKE_ipq53xx_64 += "CHIP_TYPE=MPPE"
-EXTRA_OEMAKE_ipq53xx += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
+EXTRA_OEMAKE:ipq807x += "CHIP_TYPE=HPPE"
+EXTRA_OEMAKE:ipq807x_64 += "CHIP_TYPE=HPPE"
+EXTRA_OEMAKE:ipq95xx += "CHIP_TYPE=APPE"
+EXTRA_OEMAKE:ipq95xx_64 += "CHIP_TYPE=APPE"
+EXTRA_OEMAKE:ipq53xx += "CHIP_TYPE=MPPE"
+EXTRA_OEMAKE:ipq53xx_64 += "CHIP_TYPE=MPPE"
+EXTRA_OEMAKE:ipq53xx += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
                         MODULE_TYPE=KSLIB modules \
                         "
-EXTRA_OEMAKE_ipq53xx_64 += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
+EXTRA_OEMAKE:ipq53xx_64 += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
                            MODULE_TYPE=KSLIB modules \
                            "
 
@@ -84,4 +84,4 @@ FILES:${PN} = " \
 "
 
 KERNEL_MODULE_AUTOLOAD += "qca-ssdk"
-module_autoload_qca-ssdk = "qca-ssdk"
+module_autoload:qca-ssdk = "qca-ssdk"

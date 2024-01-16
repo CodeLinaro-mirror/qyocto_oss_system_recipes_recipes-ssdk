@@ -42,6 +42,10 @@ EXTRA_OEMAKE:ipq53xx += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
 EXTRA_OEMAKE:ipq53xx_64 += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
                            MODULE_TYPE=KSLIB modules \
                            "
+do_compile:prepend() {
+        export GCC_VERSION=`${STAGING_BINDIR_TOOLCHAIN}/${HOST_SYS}-gcc --version | grep -w GCC | awk {'print$3'}`
+        echo "GCC_VERSION=$GCC_VERSION"
+}
 
 do_install() {
 	install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/${PN}

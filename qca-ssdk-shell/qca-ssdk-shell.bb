@@ -23,6 +23,17 @@ do_compile() {
 }
 
 do_install() {
+	install -d ${D}${libdir}
+	install -m 0755 build/bin/libssdk_us.so ${D}${libdir}
+
 	install -d ${D}${bindir}
 	install -m 0755 build/bin/ssdk_sh ${D}${bindir}
 }
+
+FILES:${PN} = " \
+        ${bindir}/ssdk_sh \
+        ${libdir}/libssdk_us.so \
+        "
+
+INSANE_SKIP_${PN} += "file-rdeps"
+FILES_SOLIBSDEV = ""

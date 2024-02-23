@@ -4,6 +4,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/${LICENSE};md5
 
 inherit module
 
+CLEANBROKEN = "1"
+
 FILESPATH =+ "${TOPDIR}/../opensource/:"
 
 SRC_URI = "file://qca-psdk \

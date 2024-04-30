@@ -38,11 +38,11 @@ EXTRA_OEMAKE:ipq95xx += "CHIP_TYPE=APPE"
 EXTRA_OEMAKE:ipq95xx_64 += "CHIP_TYPE=APPE"
 EXTRA_OEMAKE:ipq53xx += "CHIP_TYPE=MPPE"
 EXTRA_OEMAKE:ipq53xx_64 += "CHIP_TYPE=MPPE"
-EXTRA_OEMAKE:ipq53xx += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
+EXTRA_OEMAKE:append += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
                         MODULE_TYPE=KSLIB modules \
                         "
-EXTRA_OEMAKE:ipq53xx_64 += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
-                           MODULE_TYPE=KSLIB modules \
+EXTRA_OEMAKE:append:aarch64 += "LNX_MAKEOPTS='$(KERNEL_MAKEOPTS)' \
+				MODULE_TYPE=KSLIB modules \
                            "
 do_compile:prepend() {
         export GCC_VERSION=`${STAGING_BINDIR_TOOLCHAIN}/${HOST_SYS}-gcc --version | grep -w GCC | awk {'print$3'}`

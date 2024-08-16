@@ -36,4 +36,5 @@ FILES:${PN} = " \
         "
 
 INSANE_SKIP_${PN} += "file-rdeps"
+INSANE_SKIP:${PN} += "ldflags"
 FILES_SOLIBSDEV = ""

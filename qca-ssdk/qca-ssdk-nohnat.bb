@@ -14,11 +14,10 @@ SRC_URI = "file://qca-ssdk \
 	   file://files \
 	   "
 
-DEPENDS = "virtual/kernel"
+DEPENDS = "virtual/kernel qca-nss-phy"
+RDEPENDS:${PN} += "qca-nss-phy"
 
 S = "${WORKDIR}/qca-ssdk"
-
-PACKAGES += "kernel-module-ssdk"
 
 EXTRA_CFLAGS = "-I${STAGING_INCDIR} -fno-pic -Wno-error=incompatible-pointer-types"
 EXTRA_CFLAGS:append:aarch64 += " -mcmodel=large -mfix-cortex-a53-843419"

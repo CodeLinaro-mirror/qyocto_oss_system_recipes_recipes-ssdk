@@ -48,6 +48,10 @@ do_compile:prepend() {
         echo "GCC_VERSION=$GCC_VERSION"
 }
 
+do_compile() {
+	oe_runmake -C ${S}/mk
+}
+
 do_install() {
 	install -d ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/${PN}
 	install -m 0644 build/bin/qca-ssdk${KERNEL_OBJECT_SUFFIX} ${D}${base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/${PN}
@@ -76,7 +80,7 @@ do_install() {
 	install -m 0644 ${S}/include/sal/os/*.h ${D}${includedir}/qca-ssdk
 	install -d ${D}${bindir}
 	install -m 0755 ${WORKDIR}/files/qca-ssdk ${D}${bindir}/qca-ssdk
-	install -m 0644 ${S}/temp/Module.symvers ${D}${includedir}/qca-ssdk/Module.symvers
+	install -m 0644 ${S}/Module.symvers ${D}${includedir}/qca-ssdk/Module.symvers
 	install -d ${D}${systemd_unitdir}/system
 	install -m 0644 ${WORKDIR}/files/qca-ssdk.service ${D}${systemd_unitdir}/system/qca-ssdk.service
 }

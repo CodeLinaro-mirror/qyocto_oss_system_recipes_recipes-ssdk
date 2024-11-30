@@ -83,6 +83,8 @@ do_install() {
 	install -m 0644 ${S}/Module.symvers ${D}${includedir}/qca-ssdk/Module.symvers
 	install -d ${D}${systemd_unitdir}/system
 	install -m 0644 ${WORKDIR}/files/qca-ssdk.service ${D}${systemd_unitdir}/system/qca-ssdk.service
+	install -d ${D}${sysconfdir}/modprobe.d
+	echo "softdep qca_ssdk pre: qca-nss-phy" > ${D}${sysconfdir}/modprobe.d/qca-ssdk.conf
 }
 
 SYSTEMD_SERVICE:${PN} += "qca-ssdk.service"

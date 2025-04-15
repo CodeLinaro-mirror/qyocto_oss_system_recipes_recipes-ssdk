@@ -19,8 +19,11 @@ RDEPENDS:${PN} += "qca-nss-phy"
 
 S = "${WORKDIR}/qca-ssdk"
 
-EXTRA_CFLAGS = "-I${STAGING_INCDIR} -fno-pic -Wno-error=incompatible-pointer-types"
+EXTRA_CFLAGS = "-I${STAGING_INCDIR} -fno-pic -Wno-error=incompatible-pointer-types \
+		-I${STAGING_INCDIR}/qca-nss-phy"
+
 EXTRA_CFLAGS:append:aarch64 += " -mcmodel=large -mfix-cortex-a53-843419"
+
 EXTRA_OEMAKE:append += "KERNEL_SRC='${STAGING_KERNEL_DIR}' \
                        TOOL_PATH='${STAGING_BINDIR_TOOLCHAIN}' \
                        SYS_PATH='${STAGING_KERNEL_BUILDDIR}' \
@@ -29,8 +32,8 @@ EXTRA_OEMAKE:append += "KERNEL_SRC='${STAGING_KERNEL_DIR}' \
                        ARCH='${KARCH}' -j1 \
                        OS='linux' \
                        EXTRA_CFLAGS='${EXTRA_CFLAGS}' \
+                       KBUILD_EXTRA_SYMBOLS='${STAGING_INCDIR}/qca-nss-phy/Module.symvers' \
                        "
-
 EXTRA_OEMAKE:ipq95xx += "CHIP_TYPE=APPE"
 EXTRA_OEMAKE:ipq95xx_64 += "CHIP_TYPE=APPE"
 EXTRA_OEMAKE:ipq53xx += "CHIP_TYPE=MPPE"

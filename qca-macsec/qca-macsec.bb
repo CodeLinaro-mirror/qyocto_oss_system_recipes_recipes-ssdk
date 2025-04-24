@@ -25,6 +25,7 @@ PACKAGES += "kernel-module-qca-nss-macsec"
 CFLAGS +="-I${STAGING_INCDIR} -Wno-error=array-bounds"
 CFLAGS +="-mfpu=neon -mfloat-abi=hard"
 CFLAGS:remove:aarch64 ="-mfpu=neon -mfloat-abi=hard"
+CFLAGS += "${@bb.utils.contains('DISTRO_FEATURES','lgi_qca',' -Wno-unused-result ','',d)}"
 LDFLAGS +="--sysroot=${STAGING_DIR_TARGET}"
 
 QCA_MACSEC_CONFIG_OPTS+= "TOOL_PATH=${STAGING_BINDIR_TOOLCHAIN} \

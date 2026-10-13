@@ -17,6 +17,18 @@ SRC_URI = "file://qca-ssdk \
 DEPENDS = "virtual/kernel qca-nss-phy"
 RDEPENDS:${PN} += "qca-nss-phy"
 
+# SSDK FAL APIs use symbols exported by the qce2204 DSA driver
+QCE2K_DEP = ""
+QCE2K_DEP:ipq52xx = "qce2204_dsa"
+QCE2K_DEP:ipq52xx_64 = "qce2204_dsa"
+QCE2K_DEP:ipq53xx = "qce2204_dsa"
+QCE2K_DEP:ipq53xx_64 = "qce2204_dsa"
+QCE2K_DEP:ipq54xx = "qce2204_dsa"
+QCE2K_DEP:ipq54xx_64 = "qce2204_dsa"
+QCE2K_DEP:ipq96xx = "qce2204_dsa"
+QCE2K_DEP:ipq96xx_64 = "qce2204_dsa"
+RDEPENDS:${PN} += "${@'qce2k' if d.getVar('QCE2K_DEP') else ''}"
+
 S = "${WORKDIR}/qca-ssdk"
 
 EXTRA_CFLAGS = "-I${STAGING_INCDIR} -fno-pic -Wno-error=incompatible-pointer-types \
@@ -91,7 +103,7 @@ do_install() {
 	install -d ${D}${systemd_unitdir}/system
 	install -m 0644 ${WORKDIR}/files/qca-ssdk.service ${D}${systemd_unitdir}/system/qca-ssdk.service
 	install -d ${D}${sysconfdir}/modprobe.d
-	echo "softdep qca_ssdk pre: qca-nss-phy" > ${D}${sysconfdir}/modprobe.d/qca-ssdk.conf
+	echo "softdep qca_ssdk pre: qca-nss-phy ${QCE2K_DEP}" > ${D}${sysconfdir}/modprobe.d/qca-ssdk.conf
 }
 
 SYSTEMD_SERVICE:${PN} += "qca-ssdk.service"
